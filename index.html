@@ -1,13 +1,13 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>360° Interactive Hotspots (A-Frame)</title>
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     
     <style>
-      /* The .chat-bubble style is no longer strictly needed for background, 
-         but you can keep it for padding if you ever use a background again */
+      /* Styling for the description text */
       .chat-bubble {
-        /* background-color: rgba(0, 0, 0, 0.7); */ /* Removed background */
-        color: white; /* Still relevant for text color */
+        color: white; 
         padding: 0.15em 0.3em; 
         border-radius: 0.5em; 
       }
@@ -33,11 +33,13 @@
           
           chatBubbleEl.setAttribute('text', { value: data.description });
 
+          // On hover in: Hide the label and Show the bubble
           parentEl.addEventListener('mouseenter', () => {
             textEl.setAttribute('visible', false);
             chatBubbleEl.setAttribute('visible', true);
           });
 
+          // On hover out: Show the label and Hide the bubble
           parentEl.addEventListener('mouseleave', () => {
             textEl.setAttribute('visible', true);
             chatBubbleEl.setAttribute('visible', false);
@@ -46,34 +48,36 @@
       });
     </script>
   </head>
+
   <body>
     <a-scene>
       <a-assets>
         <img id="pano" src="Indoors360.png">
       </a-assets>
 
-        <a-sky src="#pano"></a-sky>
+      <a-sky src="#pano"></a-sky>
+
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
 
       <a-entity 
         position="-2 2 -4"
         rotation="0 20 0" 
-        
         
         hover-info="description: TV needs to be repaired. Never buying second-hand again.; targetId: chat-bubble-tv"
         
         animation__scalein="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200"
         animation__scaleout="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
       >
-                <a-text
+        <a-text
           value="TV"
           color="#FFFFFF"
           width="8"
           align="center"
-          
-        
         ></a-text>
 
-                <a-entity 
+        <a-entity 
           id="chat-bubble-tv" 
           position="0 0.5 0.1" 
           visible="false"
@@ -94,21 +98,17 @@
       <a-entity 
         position="-23 -5 12"             
         rotation="0 115 0"             
-        hover-info="description: What a view. How is the sea so close?.; targetId: chat-bubble-window"
-        
-        animation__scalein="property: scale; to: 10 10 10; startEvents: mouseenter; dur: 200"
-        animation__scaleout="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+        hover-info="description: What a view. How is the sea so close?.; targetId: chat-bubble-window-desc" animation__scalein="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200" animation__scaleout="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
       >
-                <a-text
+        <a-text
           value="Window"
           color="#FFFFFF"            
           width="20"
           align="center"
         ></a-text>
 
-                <a-entity 
-          id="chat-bubble-window" 
-          position="0 0.5 0.1" 
+        <a-entity 
+          id="chat-bubble-window-desc" position="0 0.5 0.1" 
           visible="false"
           billboard="" 
           text="
@@ -129,17 +129,16 @@
         rotation="0 80 0"             
         hover-info="description: Could it be poisonous?; targetId: chat-bubble-plant"
         
-        animation__scalein="property: scale; to: 10 10 10; startEvents: mouseenter; dur: 200"
-        animation__scaleout="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
+        animation__scalein="property: scale; to: 1.2 1.2 1.2; startEvents: mouseenter; dur: 200" animation__scaleout="property: scale; to: 1 1 1; startEvents: mouseleave; dur: 200"
       >
-                <a-text
+        <a-text
           value="Plant"
           color="#FFFFFF"            
           width="20"
           align="center"
         ></a-text>
 
-                <a-entity 
+        <a-entity 
           id="chat-bubble-plant" 
           position="0 0.5 0.1" 
           visible="false"
@@ -156,10 +155,6 @@
           class="chat-bubble"
         ></a-entity>
       </a-entity>
-
-      <a-camera>
-        <a-cursor></a-cursor>
-      </a-camera>
 
     </a-scene>
   </body>
